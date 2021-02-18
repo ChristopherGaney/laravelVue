@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-            <example-component></example-component>
+          <application></application>  
     </div>
 </body>
 </html>
