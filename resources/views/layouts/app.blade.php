@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-          <application></application>  
+            
     </div>
 </body>
 </html>

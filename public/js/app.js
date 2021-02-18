@@ -50080,8 +50080,16 @@ Vue.component('application', __webpack_require__(/*! ./components/application.vu
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+data: {
+  message: 'hope';
+}
+
+;
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  template: '<application></application>',
+  //data: ['message', 'olah amigo']
+  data: data
 });
 
 /***/ }),

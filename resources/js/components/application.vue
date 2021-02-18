@@ -16,6 +16,7 @@
             NavBar,
             Main
         },
+       
         mounted() {
             console.log('Component mounted.')
         }
