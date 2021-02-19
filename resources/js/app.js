@@ -27,13 +27,8 @@ Vue.component('application', require('./components/application.vue').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-data: {
-        message: 'hope'
-    };
-const app = new Vue({
-    el: '#app',
-    template: '<application></application>',
-    //data: ['message', 'olah amigo']
-    data: data
-});
+	const app = new Vue({
+	    el: '#app',
+	    template: '<application></application>'
+	});
 

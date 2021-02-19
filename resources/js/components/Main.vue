@@ -1,11 +1,12 @@
 <template>
-	<main class="py-4">
+    <main class="py-4">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div class="center_wrapper">
                         <form class="navbar-form pull-left">
-                          <input type="text" class="span2">
+                            <p>{{ message }}</p>
+                          <input type="text" id="input" v-model="message">
                           <button type="submit" class="btn">Submit</button>
                         </form>
                     </div>
@@ -18,8 +19,16 @@
 <script>
     export default {
         name: 'Main',
+        data: function() {
+            return {
+            message: 'hope'
+            };
+        },
         mounted() {
             console.log('Main mounted.')
         }
     }
 </script>
+
+
+	

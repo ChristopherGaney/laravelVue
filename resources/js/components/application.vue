@@ -1,6 +1,5 @@
 <template>
     <div class="app_wrapper">
-        <h3>{{ message }}</h3>
         <NavBar />
         <Main />
     </div>
@@ -16,7 +15,6 @@
             NavBar,
             Main
         },
-       
         mounted() {
             console.log('Component mounted.')
         }

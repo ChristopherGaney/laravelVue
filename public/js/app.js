@@ -1972,8 +1972,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Main',
+  data: function data() {
+    return {
+      message: 'hope'
+    };
+  },
   mounted: function mounted() {
     console.log('Main mounted.');
   }
@@ -2057,7 +2063,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NavBar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NavBar.vue */ "./resources/js/components/NavBar.vue");
 /* harmony import */ var _Main_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Main.vue */ "./resources/js/components/Main.vue");
-//
 //
 //
 //
@@ -37683,34 +37688,46 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("main", { staticClass: "py-4" }, [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row justify-content-center" }, [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "center_wrapper" }, [
-              _c("form", { staticClass: "navbar-form pull-left" }, [
-                _c("input", { staticClass: "span2", attrs: { type: "text" } }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  { staticClass: "btn", attrs: { type: "submit" } },
-                  [_vm._v("Submit")]
-                )
+  return _c("main", { staticClass: "py-4" }, [
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "center_wrapper" }, [
+            _c("form", { staticClass: "navbar-form pull-left" }, [
+              _c("p", [_vm._v(_vm._s(_vm.message))]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.message,
+                    expression: "message"
+                  }
+                ],
+                attrs: { type: "text", id: "input" },
+                domProps: { value: _vm.message },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.message = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("button", { staticClass: "btn", attrs: { type: "submit" } }, [
+                _vm._v("Submit")
               ])
             ])
           ])
         ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -37869,13 +37886,7 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "app_wrapper" },
-    [
-      _c("h3", [_vm._v(_vm._s(_vm.message))]),
-      _vm._v(" "),
-      _c("NavBar"),
-      _vm._v(" "),
-      _c("Main")
-    ],
+    [_c("NavBar"), _vm._v(" "), _c("Main")],
     1
   )
 }
@@ -50080,16 +50091,9 @@ Vue.component('application', __webpack_require__(/*! ./components/application.vu
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-data: {
-  message: 'hope';
-}
-
-;
 var app = new Vue({
   el: '#app',
-  template: '<application></application>',
-  //data: ['message', 'olah amigo']
-  data: data
+  template: '<application></application>'
 });
 
 /***/ }),
