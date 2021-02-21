@@ -18,7 +18,7 @@
 
 <script>
     export default {
-        name: 'Main',
+        name: 'comp-main',
         data: function() {
             return {
             message: 'hope'

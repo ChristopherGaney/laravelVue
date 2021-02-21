@@ -47,7 +47,7 @@
 
 <script>
     export default {
-        name: 'NavBar',
+        name: 'comp-nav-bar',
         mounted() {
             console.log('Nav mounted.')
         }
