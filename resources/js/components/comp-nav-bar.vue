@@ -1,3 +1,12 @@
+<script>
+    export default {
+        name: 'comp-nav-bar',
+        mounted() {
+            console.log('NavBar mounted.')
+        }
+    }
+</script>
+
 <template>
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
@@ -44,12 +53,4 @@
         </div>
     </nav>
 </template>
-
-<script>
-    export default {
-        name: 'comp-nav-bar',
-        mounted() {
-            console.log('Nav mounted.')
-        }
-    }
-</script>
+    

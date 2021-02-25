@@ -7,6 +7,26 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+//window.VueRouter = require('vue-router');
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);
+
+
+const Foo = { template: '<div>foo</div>' }
+const Bar = { template: '<div>bar</div>' }
+
+const routes = [
+  { path: '/foo', component: Foo },
+  { path: '/bar', component: Bar }
+]
+
+const router = new VueRouter({
+  routes // short for `routes: routes`
+})
+
+
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -18,7 +38,7 @@ window.Vue = require('vue');
 
  //const files = require.context('./', true, /\.vue$/i)
  //files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-Vue.component('comp-new-widg', require('./components/comp-new-widg.vue').default);
+
 Vue.component('comp-application', require('./components/comp-application.vue').default);
 
 
@@ -30,6 +50,7 @@ Vue.component('comp-application', require('./components/comp-application.vue').d
 
 	const app = new Vue({
 	    el: '#app',
+	    router,
 	    template: '<comp-application></comp-application>'
 	});
 

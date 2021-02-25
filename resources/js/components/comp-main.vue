@@ -1,3 +1,17 @@
+<script>
+    export default {
+        name: 'comp-main',
+        data: function() {
+            return {
+            message: 'hope'
+            };
+        },
+        mounted() {
+            console.log('Main mounted.')
+        }
+    }
+</script>
+
 <template>
     <main class="py-4">
         <div class="container">
@@ -15,20 +29,6 @@
         </div>
     </main>
 </template>
-
-<script>
-    export default {
-        name: 'comp-main',
-        data: function() {
-            return {
-            message: 'hope'
-            };
-        },
-        mounted() {
-            console.log('Main mounted.')
-        }
-    }
-</script>
 
 
 	
