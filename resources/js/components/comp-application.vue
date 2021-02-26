@@ -1,14 +1,14 @@
 <script>
-    import compNavBar from './comp-nav-bar.vue'
-    import compMain from './comp-main.vue'
+    import compHeader from './comp-header.vue'
+    import compFooter from './comp-footer.vue'
 
     export default {
         components: {
-            compNavBar,
-            compMain
+            compHeader,
+            compFooter
         },
         mounted() {
-            console.log('Component mounted.')
+            console.log('Application mounted.')
         },
          computed: {
             username() {
@@ -26,12 +26,8 @@
 
 <template>
     <div class="app_wrapper">
-        <comp-nav-bar />
-        <div class="route_wrap">
-            <router-link to="/foo">Go to Foo</router-link>
-            <router-link to="/bar">Go to Bar</router-link>
-        </div>
+        <comp-header />
         <router-view></router-view>
-        <comp-main />
+        <comp-footer />
     </div>
 </template>

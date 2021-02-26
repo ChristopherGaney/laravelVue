@@ -13,12 +13,12 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
+const Foo = { template: '<div>Login</div>' }
+const Bar = { template: '<div>Register</div>' }
 
 const routes = [
-  { path: '/foo', component: Foo },
-  { path: '/bar', component: Bar }
+  { path: '/login', component: Foo },
+  { path: '/register', component: Bar }
 ]
 
 const router = new VueRouter({

@@ -1,19 +1,19 @@
 <script>
     export default {
-        name: 'comp-main',
+        name: 'comp-Footer',
         data: function() {
             return {
             message: 'hope'
             };
         },
         mounted() {
-            console.log('Main mounted.')
+            console.log('Footer mounted.')
         }
     }
 </script>
 
 <template>
-    <main class="py-4">
+    <footer class="py-4">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12">
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-    </main>
+    </footer>
 </template>
 
 

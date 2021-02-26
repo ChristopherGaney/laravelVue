@@ -1,14 +1,14 @@
 <script>
     export default {
-        name: 'comp-nav-bar',
+        name: 'comp-header',
         mounted() {
-            console.log('NavBar mounted.')
+            console.log('Header mounted.')
         }
     }
 </script>
 
 <template>
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <header class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="">
                 NewsReader
@@ -22,17 +22,17 @@
                 <ul class="navbar-nav mr-auto">
 
                 </ul>
-
+                
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="">Login</a>
+                        <router-link to="/login" class="nav-link">Login</router-link>
                     </li>
                         
                     <li class="nav-item">
-                        <a class="nav-link" href="">Register</a>
+                        <router-link to="/register" class="nav-link">Register</router-link>
                     </li>
                      
                     <li class="nav-item dropdown">
@@ -51,6 +51,6 @@
                 </ul>
             </div>
         </div>
-    </nav>
+    </header>
 </template>
     
