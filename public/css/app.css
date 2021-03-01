@@ -10944,6 +10944,18 @@ a.text-dark:focus {
   }
 }
 
+section {
+  min-height: 30rem;
+}
+
+.footer {
+  background: #CED6DC;
+}
+
+.home {
+  padding: 2rem;
+}
+
 .login {
   padding: 2rem;
 }

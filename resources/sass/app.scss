@@ -8,9 +8,12 @@
 @import '~bootstrap/scss/bootstrap';
 
 // theme modules
+@import './components/bootstrap-overrides';
+
 @import './components/header';
 @import './components/footer';
 @import './components/home';
 @import './components/login';
+
 
 

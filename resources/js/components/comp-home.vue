@@ -13,7 +13,7 @@
 </script>
 
 <template>
-    <secton class="home">
+    <section class="home">
         <div class="py-4">
             <div class="container">
                 <div class="row justify-content-center">
@@ -25,5 +25,5 @@
                 </div>
             </div>
         </div>
-    </secton>
+    </section>
 </template>
