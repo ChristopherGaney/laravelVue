@@ -6,26 +6,12 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
-//window.VueRouter = require('vue-router');
-import VueRouter from 'vue-router';
+import Vue from 'vue';
+//import Vuex from 'vuex';
 
-Vue.use(VueRouter);
+import router from './router';
 
-
-const Foo = { template: '<div>Login</div>' }
-const Bar = { template: '<div>Register</div>' }
-
-const routes = [
-  { path: '/login', component: Foo },
-  { path: '/register', component: Bar }
-]
-
-const router = new VueRouter({
-  routes // short for `routes: routes`
-})
-
-
+//Vue.use(Vuex)
 
 
 /**

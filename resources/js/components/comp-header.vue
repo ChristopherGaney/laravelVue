@@ -4,11 +4,11 @@
         mounted() {
             console.log('Header mounted.')
         }
-    }
+    };
 </script>
 
 <template>
-    <header class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <header class="header navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="">
                 NewsReader
@@ -28,11 +28,11 @@
                     <!-- Authentication Links -->
                     
                     <li class="nav-item">
-                        <router-link to="/login" class="nav-link">Login</router-link>
+                        <router-link to="/home" class="nav-link">Home</router-link>
                     </li>
                         
                     <li class="nav-item">
-                        <router-link to="/register" class="nav-link">Register</router-link>
+                        <router-link to="/login" class="nav-link">Login</router-link>
                     </li>
                      
                     <li class="nav-item dropdown">

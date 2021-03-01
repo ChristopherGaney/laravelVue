@@ -3,17 +3,17 @@
         name: 'comp-Footer',
         data: function() {
             return {
-            message: 'hope'
+            message: 'footer'
             };
         },
         mounted() {
             console.log('Footer mounted.')
         }
-    }
+    };
 </script>
 
 <template>
-    <footer class="py-4">
+    <footer class="footer py-4">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12">

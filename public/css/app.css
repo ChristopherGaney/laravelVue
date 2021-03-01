@@ -10944,3 +10944,12 @@ a.text-dark:focus {
   }
 }
 
+.login {
+  padding: 2rem;
+}
+
+.login .form_wrap {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
