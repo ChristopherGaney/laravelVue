@@ -11,7 +11,7 @@ import Vue from 'vue';
 
 import router from './router';
 
-//Vue.use(Vuex)
+import store from './store/index';
 
 
 /**
@@ -37,6 +37,7 @@ Vue.component('comp-application', require('./components/comp-application.vue').d
 	const app = new Vue({
 	    el: '#app',
 	    router,
+	    store,
 	    template: '<comp-application></comp-application>'
 	});
 
