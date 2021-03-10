@@ -1,4 +1,5 @@
 <script>
+  import {mapActions, mapGetters} from 'vuex';
   export default {
     name: 'comp-login',
     data(){
@@ -7,10 +8,23 @@
           password:''
        }
     },
+    computed:{
+      ...mapGetters('auth',{
+        getterLoginStatus:'getLoginStatus'
+      })
+    },
     methods:{
-       login(){
-          console.log(this.username, this.password);
-       }
+        ...mapActions('auth',{
+          actionLogin:'login'
+        }),
+        async login(){
+           await this.actionLogin({username:this.username, password:this.password});
+           if(this.getterLoginStatus === 'success'){
+             alert('login sucess');
+           }else{
+             alert('failed to login')
+           }
+        }
     }
 };
 </script>
