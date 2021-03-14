@@ -18,13 +18,13 @@
           actionLogin:'login'
         }),
         async login(){
-           await this.actionLogin({username:this.username, password:this.password});
-           if(this.getterLoginStatus === 'success'){
-             alert('login sucess');
-           }else{
-             alert('failed to login')
-           }
-        }
+		   await this.actionLogin({userName:this.username, password:this.password});
+		   if(this.getterLoginStatus === 'success'){
+			 this.$router.push("/dashboard");
+		   }else{
+			 alert('failed to login')
+		   }
+		}
     }
 };
 </script>

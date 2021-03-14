@@ -25,7 +25,7 @@ const actions = {
       refresh_token: ""
      }
      commit('saveTokenData', data);
-     commit('setLoginStatu','success');
+     commit('setLoginStatus','success');
   },
 };
  
@@ -45,7 +45,7 @@ const mutations = {
     };
     state.authData = newTokenData; 
   },
-  setLoginStatu(state, value){
+  setLoginStatus(state, value){
      state.loginStatus = value;
   }
 };
