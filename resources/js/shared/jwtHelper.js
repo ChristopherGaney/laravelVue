@@ -12,3 +12,9 @@ export function jwtDecrypt(token) {
  
   return JSON.parse(jsonPayload);
 }
+export function tokenAlive(exp) {
+  if (Date.now() >= exp * 1000) {
+    return false;
+  }
+  return true;
+}

@@ -56037,6 +56037,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_comp_home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/comp-home.vue */ "./resources/js/components/comp-home.vue");
 /* harmony import */ var _components_comp_login_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/comp-login.vue */ "./resources/js/components/comp-login.vue");
 /* harmony import */ var _components_comp_dashboard_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/comp-dashboard.vue */ "./resources/js/components/comp-dashboard.vue");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store/index */ "./resources/js/store/index.js");
+//import { createRouter, createWebHistory } from "vue-router";
+
 
 
 
@@ -56060,7 +56063,56 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: routes // short for `routes: routes`
 
 });
-/* harmony default export */ __webpack_exports__["default"] = (router);
+/* harmony default export */ __webpack_exports__["default"] = (router); // export const routeConfig = createRouter({
+//   history: createWebHistory(),
+//   routes: routes,
+// });
+
+router.beforeEach(function (to, from, next) {
+  if (to.meta.requiredAuth) {
+    var auth = _store_index__WEBPACK_IMPORTED_MODULE_5__["default"].getters["auth/isTokenActive"];
+
+    if (!auth) {
+      return next({
+        path: '/login'
+      });
+    }
+  }
+
+  return next();
+});
+router.beforeEach(function (to, from, next) {
+  console.log(_store_index__WEBPACK_IMPORTED_MODULE_5__["default"].getters["auth/getAuthData"].token);
+
+  if (!_store_index__WEBPACK_IMPORTED_MODULE_5__["default"].getters["auth/getAuthData"].token) {
+    var access_token = localStorage.getItem("access_token");
+    var refresh_token = localStorage.getItem("refresh_token");
+
+    if (access_token) {
+      var data = {
+        access_token: access_token,
+        refresh_token: refresh_token
+      };
+      _store_index__WEBPACK_IMPORTED_MODULE_5__["default"].commit('auth/saveTokenData', data);
+    }
+  }
+
+  var auth = _store_index__WEBPACK_IMPORTED_MODULE_5__["default"].getters["auth/isTokenActive"];
+
+  if (to.fullPath == "/") {
+    return next();
+  } else if (auth && !to.meta.requiredAuth) {
+    return next({
+      path: "/dashboard"
+    });
+  } else if (!auth && to.meta.requiredAuth) {
+    return next({
+      path: '/login'
+    });
+  }
+
+  return next();
+});
 
 /***/ }),
 
@@ -56068,12 +56120,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*!******************************************!*\
   !*** ./resources/js/shared/jwtHelper.js ***!
   \******************************************/
-/*! exports provided: jwtDecrypt */
+/*! exports provided: jwtDecrypt, tokenAlive */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "jwtDecrypt", function() { return jwtDecrypt; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tokenAlive", function() { return tokenAlive; });
 function jwtDecrypt(token) {
   var base64Url = token.split(".")[1];
   var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -56081,6 +56134,13 @@ function jwtDecrypt(token) {
     return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(""));
   return JSON.parse(jsonPayload);
+}
+function tokenAlive(exp) {
+  if (Date.now() >= exp * 1000) {
+    return false;
+  }
+
+  return true;
 }
 
 /***/ }),
@@ -56131,6 +56191,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 var state = function state() {
   return {
     authData: {
@@ -56147,6 +56208,13 @@ var state = function state() {
 var getters = {
   getLoginStatus: function getLoginStatus(state) {
     return state.loginStatus;
+  },
+  isTokenActive: function isTokenActive(state) {
+    if (!state.authData.tokenExp) {
+      return false;
+    }
+
+    return Object(_shared_jwtHelper__WEBPACK_IMPORTED_MODULE_1__["tokenAlive"])(state.authData.tokenExp);
   }
 };
 var actions = {

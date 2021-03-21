@@ -1,4 +1,5 @@
 import { jwtDecrypt } from "../../shared/jwtHelper";
+import { tokenAlive } from "../../shared/jwtHelper";
 
 const state = () => ({
   authData: {
@@ -13,8 +14,14 @@ const state = () => ({
  
 const getters = {
     getLoginStatus(state){
-    return state.loginStatus;
-  }
+      return state.loginStatus;
+    },
+    isTokenActive(state) {
+      if (!state.authData.tokenExp) {
+        return false;
+      }
+      return tokenAlive(state.authData.tokenExp);
+    }
 };
  
 const actions = {
