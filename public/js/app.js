@@ -2003,18 +2003,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('auth', {
-    gettersAuthData: 'getAuthData'
-  }))
+//import { mapGetters } from 'vuex';
+/* harmony default export */ __webpack_exports__["default"] = ({// computed:{
+  //     ...mapGetters('auth',{
+  //         gettersAuthData:'getAuthData'
+  //     })
+  // }
 });
 
 /***/ }),
@@ -38554,25 +38548,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h1", [_vm._v("Dashboard Page")]),
-    _vm._v(" "),
-    _c("div", [
-      _vm._v(
-        "\n        UserName -- " +
-          _vm._s(_vm.gettersAuthData.userName) +
-          "\n    "
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", [
-      _vm._v(
-        "\n        Id  -- " + _vm._s(_vm.gettersAuthData.userId) + "\n    "
-      )
-    ])
-  ])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("h1", [_vm._v("Dashboard Page")]),
+      _vm._v("\n    //had to remove\n")
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -38685,7 +38673,7 @@ var render = function() {
                 [
                   _c(
                     "router-link",
-                    { staticClass: "nav-link", attrs: { to: "/home" } },
+                    { staticClass: "nav-link", attrs: { to: "/" } },
                     [_vm._v("Home")]
                   )
                 ],
@@ -38700,6 +38688,19 @@ var render = function() {
                     "router-link",
                     { staticClass: "nav-link", attrs: { to: "/login" } },
                     [_vm._v("Login")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav-item" },
+                [
+                  _c(
+                    "router-link",
+                    { staticClass: "nav-link", attrs: { to: "/dashboard" } },
+                    [_vm._v("Dashboard")]
                   )
                 ],
                 1
@@ -56047,7 +56048,7 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var routes = [{
-  path: '/home',
+  path: '/',
   component: _components_comp_home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
   path: '/login',
@@ -56057,7 +56058,7 @@ var routes = [{
   component: _components_comp_dashboard_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
   path: '*',
-  redirect: '/home'
+  redirect: '/'
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: routes // short for `routes: routes`
@@ -56068,51 +56069,49 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 //   routes: routes,
 // });
 
-router.beforeEach(function (to, from, next) {
-  if (to.meta.requiredAuth) {
-    var auth = _store_index__WEBPACK_IMPORTED_MODULE_5__["default"].getters["auth/isTokenActive"];
+/* router.beforeEach((to,from, next) => {
+    console.log('checking isTokenActive');
+    if(to.meta.requiredAuth){
 
-    if (!auth) {
-      return next({
-        path: '/login'
-      });
+        const auth = store.getters["auth/isTokenActive"];
+        if(!auth){
+
+           return next({path: '/login'});
+        }
     }
-  }
-
-  return next();
-});
-router.beforeEach(function (to, from, next) {
-  console.log(_store_index__WEBPACK_IMPORTED_MODULE_5__["default"].getters["auth/getAuthData"].token);
-
-  if (!_store_index__WEBPACK_IMPORTED_MODULE_5__["default"].getters["auth/getAuthData"].token) {
-    var access_token = localStorage.getItem("access_token");
-    var refresh_token = localStorage.getItem("refresh_token");
-
-    if (access_token) {
-      var data = {
-        access_token: access_token,
-        refresh_token: refresh_token
-      };
-      _store_index__WEBPACK_IMPORTED_MODULE_5__["default"].commit('auth/saveTokenData', data);
-    }
-  }
-
-  var auth = _store_index__WEBPACK_IMPORTED_MODULE_5__["default"].getters["auth/isTokenActive"];
-
-  if (to.fullPath == "/") {
     return next();
-  } else if (auth && !to.meta.requiredAuth) {
-    return next({
-      path: "/dashboard"
-    });
-  } else if (!auth && to.meta.requiredAuth) {
-    return next({
-      path: '/login'
-    });
-  }
-
-  return next();
 });
+
+router.beforeEach((to,from, next) => {
+    console.log('getting auth Data');
+    console.log(store.getters["auth/getAuthData"].token);
+
+    if(!store.getters["auth/getAuthData"].token){
+
+        const access_token = localStorage.getItem("access_token");
+        const refresh_token = localStorage.getItem("refresh_token");
+        if(access_token){
+            const data = {
+                access_token:access_token,
+                refresh_token:refresh_token
+            };
+            store.commit('auth/saveTokenData',data);
+        }
+    }
+    const auth = store.getters["auth/isTokenActive"];
+ 
+    if(to.fullPath == "/"){
+        return next();
+    }
+    else if(auth && !to.meta.requiredAuth){
+        return next({path:"/dashboard"});
+    }
+    else if(!auth && to.meta.requiredAuth){
+        return next({path: '/login'});
+    }
+ 
+    return next();
+});*/
 
 /***/ }),
 
@@ -56220,19 +56219,26 @@ var getters = {
 var actions = {
   login: function login(_ref, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var commit, data;
+      var commit, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               commit = _ref.commit;
-              console.log(payload);
-              data = {
-                access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QiLCJzdWIiOjIsImlhdCI6MTYwNDMwOTc0OSwiZXhwIjoxNjA0MzA5ODA5fQ.jHez9kegJ7GT1AO5A2fQp6Dg9A6PBmeiDW1YPaCQoYs",
-                refresh_token: ""
-              };
-              commit('saveTokenData', data);
-              commit('setLoginStatus', 'success');
+              _context.next = 3;
+              return axios.post("http://localhost:3000/auth/login", payload)["catch"](function (err) {
+                console.log(err);
+              });
+
+            case 3:
+              response = _context.sent;
+
+              if (response && response.data) {
+                commit("saveTokenData", response.data);
+                commit("setLoginStatu", "success");
+              } else {
+                commit("setLoginStatu", "failed");
+              }
 
             case 5:
             case "end":

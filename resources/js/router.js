@@ -9,10 +9,10 @@ import store from "./store/index";
 Vue.use(VueRouter);
 
 const routes = [
-  {	path: '/home', component: compHome },
+  {	path: '/', component: compHome },
   { path: '/login', component: compLogin },
   { path: '/dashboard', component: compDashboard },
-  { path: '*', redirect: '/home'}
+  { path: '*', redirect: '/'}
 ]
 
 const router = new VueRouter({
@@ -23,10 +23,13 @@ export default router;
 //   history: createWebHistory(),
 //   routes: routes,
 // });
- router.beforeEach((to,from, next) => {
+/* router.beforeEach((to,from, next) => {
+    console.log('checking isTokenActive');
     if(to.meta.requiredAuth){
+
         const auth = store.getters["auth/isTokenActive"];
         if(!auth){
+
            return next({path: '/login'});
         }
     }
@@ -34,8 +37,11 @@ export default router;
 });
 
 router.beforeEach((to,from, next) => {
+    console.log('getting auth Data');
     console.log(store.getters["auth/getAuthData"].token);
+
     if(!store.getters["auth/getAuthData"].token){
+
         const access_token = localStorage.getItem("access_token");
         const refresh_token = localStorage.getItem("refresh_token");
         if(access_token){
@@ -59,4 +65,4 @@ router.beforeEach((to,from, next) => {
     }
  
     return next();
-});
+});*/

@@ -25,15 +25,19 @@ const getters = {
 };
  
 const actions = {
-    async login({commit},payload) {
-    console.log(payload);
-     const data = {
-      access_token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QiLCJzdWIiOjIsImlhdCI6MTYwNDMwOTc0OSwiZXhwIjoxNjA0MzA5ODA5fQ.jHez9kegJ7GT1AO5A2fQp6Dg9A6PBmeiDW1YPaCQoYs",
-      refresh_token: ""
-     }
-     commit('saveTokenData', data);
-     commit('setLoginStatus','success');
-  },
+    async login({ commit }, payload) {
+      const response = await axios
+        .post("http://localhost:3000/auth/login", payload)
+        .catch((err) => {
+          console.log(err);
+        });
+      if (response && response.data) {
+        commit("saveTokenData", response.data);
+        commit("setLoginStatu", "success");
+      } else {
+        commit("setLoginStatu", "failed");
+      }
+  }
 };
  
 const mutations = {
