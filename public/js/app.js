@@ -56049,16 +56049,22 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var routes = [{
   path: '/',
-  component: _components_comp_home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: _components_comp_home_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+  meta: {
+    requiresAuth: true
+  }
 }, {
   path: '/login',
   component: _components_comp_login_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {
   path: '/dashboard',
-  component: _components_comp_dashboard_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+  component: _components_comp_dashboard_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+  meta: {
+    requiresAuth: true
+  }
 }, {
   path: '*',
-  redirect: '/'
+  redirect: '/login'
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: routes // short for `routes: routes`
@@ -56069,49 +56075,57 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 //   routes: routes,
 // });
 
-/* router.beforeEach((to,from, next) => {
-    console.log('checking isTokenActive');
-    if(to.meta.requiredAuth){
+router.beforeEach(function (to, from, next) {
+  console.log('checking isTokenActive');
 
-        const auth = store.getters["auth/isTokenActive"];
-        if(!auth){
+  if (to.meta.requiresAuth) {
+    console.log('requiredAuth');
+    var auth = _store_index__WEBPACK_IMPORTED_MODULE_5__["default"].getters["auth/isTokenActive"];
 
-           return next({path: '/login'});
-        }
+    if (!auth) {
+      console.log('no auth');
+      return next({
+        path: '/login'
+      });
     }
-    return next();
+  }
+
+  return next();
 });
+router.beforeEach(function (to, from, next) {
+  console.log('getting auth Data'); //console.log(store.getters["auth/getAuthData"].token);
 
-router.beforeEach((to,from, next) => {
-    console.log('getting auth Data');
-    console.log(store.getters["auth/getAuthData"].token);
+  if (!_store_index__WEBPACK_IMPORTED_MODULE_5__["default"].getters["auth/getAuthData"].token) {
+    console.log('no token in store');
+    var access_token = localStorage.getItem("access_token");
+    var refresh_token = localStorage.getItem("refresh_token");
 
-    if(!store.getters["auth/getAuthData"].token){
+    if (access_token) {
+      var data = {
+        access_token: access_token,
+        refresh_token: refresh_token
+      };
+      _store_index__WEBPACK_IMPORTED_MODULE_5__["default"].commit('auth/saveTokenData', data);
+    }
+  }
 
-        const access_token = localStorage.getItem("access_token");
-        const refresh_token = localStorage.getItem("refresh_token");
-        if(access_token){
-            const data = {
-                access_token:access_token,
-                refresh_token:refresh_token
-            };
-            store.commit('auth/saveTokenData',data);
-        }
-    }
-    const auth = store.getters["auth/isTokenActive"];
- 
-    if(to.fullPath == "/"){
-        return next();
-    }
-    else if(auth && !to.meta.requiredAuth){
-        return next({path:"/dashboard"});
-    }
-    else if(!auth && to.meta.requiredAuth){
-        return next({path: '/login'});
-    }
- 
+  var auth = _store_index__WEBPACK_IMPORTED_MODULE_5__["default"].getters["auth/isTokenActive"];
+  console.log(auth);
+
+  if (to.fullPath == "/") {
     return next();
-});*/
+  } else if (auth && !to.meta.requiredAuth) {
+    return next({
+      path: "/dashboard"
+    });
+  } else if (!auth && to.meta.requiredAuth) {
+    return next({
+      path: '/login'
+    });
+  }
+
+  return next();
+});
 
 /***/ }),
 
@@ -56205,6 +56219,9 @@ var state = function state() {
 };
 
 var getters = {
+  getAuthData: function getAuthData(state) {
+    return state.authData;
+  },
   getLoginStatus: function getLoginStatus(state) {
     return state.loginStatus;
   },

@@ -13,6 +13,9 @@ const state = () => ({
 });
  
 const getters = {
+    getAuthData(state){
+      return state.authData;
+    },
     getLoginStatus(state){
       return state.loginStatus;
     },

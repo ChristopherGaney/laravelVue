@@ -9,10 +9,10 @@ import store from "./store/index";
 Vue.use(VueRouter);
 
 const routes = [
-  {	path: '/', component: compHome },
+  {	path: '/', component: compHome, meta: { requiresAuth: true } },
   { path: '/login', component: compLogin },
-  { path: '/dashboard', component: compDashboard },
-  { path: '*', redirect: '/'}
+  { path: '/dashboard', component: compDashboard, meta: { requiresAuth: true } },
+  { path: '*', redirect: '/login'}
 ]
 
 const router = new VueRouter({
@@ -23,13 +23,13 @@ export default router;
 //   history: createWebHistory(),
 //   routes: routes,
 // });
-/* router.beforeEach((to,from, next) => {
+ router.beforeEach((to,from, next) => {
     console.log('checking isTokenActive');
-    if(to.meta.requiredAuth){
-
+    if(to.meta.requiresAuth){
+        console.log('requiredAuth');
         const auth = store.getters["auth/isTokenActive"];
         if(!auth){
-
+            console.log('no auth');
            return next({path: '/login'});
         }
     }
@@ -38,10 +38,10 @@ export default router;
 
 router.beforeEach((to,from, next) => {
     console.log('getting auth Data');
-    console.log(store.getters["auth/getAuthData"].token);
+    //console.log(store.getters["auth/getAuthData"].token);
 
     if(!store.getters["auth/getAuthData"].token){
-
+        console.log('no token in store');
         const access_token = localStorage.getItem("access_token");
         const refresh_token = localStorage.getItem("refresh_token");
         if(access_token){
@@ -53,7 +53,7 @@ router.beforeEach((to,from, next) => {
         }
     }
     const auth = store.getters["auth/isTokenActive"];
- 
+    console.log(auth);
     if(to.fullPath == "/"){
         return next();
     }
@@ -65,4 +65,4 @@ router.beforeEach((to,from, next) => {
     }
  
     return next();
-});*/
+});
