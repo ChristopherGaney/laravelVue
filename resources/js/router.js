@@ -23,7 +23,7 @@ export default router;
 //   history: createWebHistory(),
 //   routes: routes,
 // });
- router.beforeEach((to,from, next) => {
+router.beforeEach((to,from, next) => {
     console.log('checking isTokenActive');
     if(to.meta.requiresAuth){
         console.log('requiredAuth');
@@ -38,7 +38,6 @@ export default router;
 
 router.beforeEach((to,from, next) => {
     console.log('getting auth Data');
-    //console.log(store.getters["auth/getAuthData"].token);
 
     if(!store.getters["auth/getAuthData"].token){
         console.log('no token in store');
