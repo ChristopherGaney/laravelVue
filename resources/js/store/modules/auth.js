@@ -26,19 +26,22 @@ const getters = {
       return tokenAlive(state.authData.tokenExp);
     }
 };
- 
+
+const headers = { 'Access-Control-Allow-Origin': '*',
+					'Content-Type': 'application/json' };
 const actions = {
     async login({ commit }, payload) {
+    	console.dir(payload);
       const response = await axios
-        .post("http://localhost:3000/auth/login", payload)
+        .post("http://localhost:3000/auth/login", payload, {headers})
         .catch((err) => {
           console.log(err);
         });
       if (response && response.data) {
         commit("saveTokenData", response.data);
-        commit("setLoginStatu", "success");
+        commit("setLoginStatus", "success");
       } else {
-        commit("setLoginStatu", "failed");
+        commit("setLoginStatus", "failed");
       }
   }
 };

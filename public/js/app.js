@@ -2126,7 +2126,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _context.next = 2;
                 return _this.actionLogin({
-                  userName: _this.username,
+                  username: _this.username,
                   password: _this.password
                 });
 
@@ -56093,7 +56093,7 @@ router.beforeEach(function (to, from, next) {
   return next();
 });
 router.beforeEach(function (to, from, next) {
-  console.log('getting auth Data'); //console.log(store.getters["auth/getAuthData"].token);
+  console.log('getting auth Data');
 
   if (!_store_index__WEBPACK_IMPORTED_MODULE_5__["default"].getters["auth/getAuthData"].token) {
     console.log('no token in store');
@@ -56233,6 +56233,10 @@ var getters = {
     return Object(_shared_jwtHelper__WEBPACK_IMPORTED_MODULE_1__["tokenAlive"])(state.authData.tokenExp);
   }
 };
+var headers = {
+  'Access-Control-Allow-Origin': '*',
+  'Content-Type': 'application/json'
+};
 var actions = {
   login: function login(_ref, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -56242,22 +56246,25 @@ var actions = {
           switch (_context.prev = _context.next) {
             case 0:
               commit = _ref.commit;
-              _context.next = 3;
-              return axios.post("http://localhost:3000/auth/login", payload)["catch"](function (err) {
+              console.dir(payload);
+              _context.next = 4;
+              return axios.post("http://localhost:3000/auth/login", payload, {
+                headers: headers
+              })["catch"](function (err) {
                 console.log(err);
               });
 
-            case 3:
+            case 4:
               response = _context.sent;
 
               if (response && response.data) {
                 commit("saveTokenData", response.data);
-                commit("setLoginStatu", "success");
+                commit("setLoginStatus", "success");
               } else {
-                commit("setLoginStatu", "failed");
+                commit("setLoginStatus", "failed");
               }
 
-            case 5:
+            case 6:
             case "end":
               return _context.stop();
           }

@@ -18,7 +18,7 @@
           actionLogin:'login'
         }),
         async login(){
-		   await this.actionLogin({userName:this.username, password:this.password});
+		   await this.actionLogin({username:this.username, password:this.password});
 		   if(this.getterLoginStatus === 'success'){
 			 this.$router.push("/dashboard");
 		   }else{
