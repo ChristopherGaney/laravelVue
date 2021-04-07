@@ -38,6 +38,7 @@ const actions = {
           console.log(err);
         });
       if (response && response.data) {
+        console.dir(response.data);
         commit("saveTokenData", response.data);
         commit("setLoginStatus", "success");
       } else {
@@ -60,7 +61,8 @@ const mutations = {
       userId: jwtDecodedValue.sub,
       userName: jwtDecodedValue.userName,
     };
-    state.authData = newTokenData; 
+    state.authData = newTokenData;
+    console.dir(state.authData); 
   },
   setLoginStatus(state, value){
      state.loginStatus = value;

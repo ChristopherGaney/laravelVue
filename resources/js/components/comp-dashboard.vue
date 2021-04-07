@@ -1,16 +1,21 @@
 <script>
-//import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
-    // computed:{
-    //     ...mapGetters('auth',{
-    //         gettersAuthData:'getAuthData'
-    //     })
-    // }
+    computed:{
+        ...mapGetters('auth',{
+            gettersAuthData:'getAuthData'
+        })
+    }
 }
 </script>
 <template>
     <div>
         <h1>Dashboard Page</h1>
-        //had to remove
+        <div>
+             UserName -- {{gettersAuthData.userName}}
+        </div>
+        <div>
+             Id  -- {{gettersAuthData.userId}}
+        </div>
     </div>
 </template>

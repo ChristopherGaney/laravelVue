@@ -10,7 +10,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {	path: '/', component: compHome, meta: { requiresAuth: true } },
-  { path: '/login', component: compLogin },
+  { path: '/login', component: compLogin, meta: { requiredAuth: false }},
   { path: '/dashboard', component: compDashboard, meta: { requiresAuth: true } },
   { path: '*', redirect: '/login'}
 ]
@@ -26,10 +26,10 @@ export default router;
 router.beforeEach((to,from, next) => {
     console.log('checking isTokenActive');
     if(to.meta.requiresAuth){
-        console.log('requiredAuth');
+        console.log('meta requiredAuth');
         const auth = store.getters["auth/isTokenActive"];
         if(!auth){
-            console.log('no auth');
+            console.log('meta no auth');
            return next({path: '/login'});
         }
     }
@@ -44,6 +44,7 @@ router.beforeEach((to,from, next) => {
         const access_token = localStorage.getItem("access_token");
         const refresh_token = localStorage.getItem("refresh_token");
         if(access_token){
+            console.log('has access token');
             const data = {
                 access_token:access_token,
                 refresh_token:refresh_token
@@ -52,14 +53,16 @@ router.beforeEach((to,from, next) => {
         }
     }
     const auth = store.getters["auth/isTokenActive"];
-    console.log(auth);
+    
     if(to.fullPath == "/"){
         return next();
     }
     else if(auth && !to.meta.requiredAuth){
-        return next({path:"/dashboard"});
+        console.log('going to dash');
+        return next();
     }
     else if(!auth && to.meta.requiredAuth){
+        console.log('going to login');
         return next({path: '/login'});
     }
  
