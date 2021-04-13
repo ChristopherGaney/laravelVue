@@ -1,3 +1,0 @@
-## Laravel/Vue and JWT Auth
-
-I followed this tutorial, [Part-1 VueJS JWT(JSON Web Token) Authentication(Access Token Implementation)](https://www.learmoreseekmore.com/2020/12/vue3-jwt-auth-accesstoken.html), and was able to set up simple JWT login. The tutorial had some errors, and I was using a newer version of Vue, so it took a bit on fiddling to get it working. Though I can log in, I can't get back the username from the local api that I set up. The local api was also provided by the author of the tutorial, so my next step would be to debug that. I am pausing this project, right now, to work on using Laravel's built in authorization API called Sanctum.
